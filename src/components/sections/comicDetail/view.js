@@ -48,7 +48,6 @@ class ComicDetail extends Component {
   }
 
   _renderCharacter({ item }) {
-    console.log("_renderCharacter item:", item);
     return (
       <CharacterCell
         character={item}
@@ -78,8 +77,9 @@ class ComicDetail extends Component {
     const image =
       comic && comic.images && comic.images.length > 0
         ? { uri: comic.images[0].path + "." + comic.images[0].extension }
-        : null;
-    const description = comic && comic.description ? comic.description : "";
+        : require("../../../resources/placeholder.jpg");
+    const description =
+      comic && comic.description ? comic.description : "[Sin descripción]";
     return (
       <View style={styles.container}>
         <Animated.Image
@@ -130,7 +130,7 @@ const mapStateToProps = state => {
   return {
     isFetching: state.comics.isFetching,
     list: state.characters.list,
-    comic: state.comic
+    comic: state.comics.item
   };
 };
 
