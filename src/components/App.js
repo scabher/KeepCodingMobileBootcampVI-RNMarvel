@@ -5,9 +5,8 @@ import {
   Comics,
   Characters,
   CharacterDetail,
-  CharacterAdd,
-  CharacterEdit,
-  ComicDetail
+  ComicDetail,
+  ComicAddEdit
 } from "./sections/";
 import * as api from "../api/";
 
@@ -32,7 +31,7 @@ const sceneDefaultStyles = {
 const RightButton = props => (
   <TouchableOpacity
     style={{ padding: 10 }}
-    onPress={() => Actions.characterAdd()}
+    onPress={() => Actions.comicAddEdit()}
   >
     <Text style={{ color: "white", fontWeight: "bold" }}>{"Añadir"}</Text>
   </TouchableOpacity>
@@ -73,9 +72,9 @@ export default class App extends Component {
               {...sceneDefaultStyles}
             />
             <Scene
-              key={"characterAdd"}
-              component={CharacterAdd}
-              title={"Añadir"}
+              key={"comicAddEdit"}
+              component={ComicAddEdit}
+              title={"Añadir Comic"}
               {...sceneDefaultStyles}
             />
           </Stack>

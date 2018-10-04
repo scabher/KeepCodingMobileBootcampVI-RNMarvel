@@ -119,7 +119,7 @@ class ComicDetail extends Component {
         <View style={{ margin: 20 }}>
           <Button
             label={"EDITAR"}
-            onPress={() => Actions.characterAdd({ comic, isEdit: true })}
+            onPress={() => Actions.comicAddEdit({ comic, isEdit: true })}
           />
         </View>
       </ScrollView>

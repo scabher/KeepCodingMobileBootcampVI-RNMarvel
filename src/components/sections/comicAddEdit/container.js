@@ -1,18 +1,18 @@
 import { connect } from "react-redux";
-import * as CharactersActions from "../../../redux/characters/actions";
+import * as ComicsActions from "../../../redux/comics/actions";
 import View from "./view";
 
 const mapStateToProps = state => {
   return {
     comic: state.comics.item,
-    isFetching: state.characters.isFetching
+    isFetching: state.comics.isFetching
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onSubmitCharacter: data => {
-      dispatch(CharactersActions.postComicsCharacter(data));
+    onSubmitComic: data => {
+      dispatch(ComicsActions.postComic(data));
     }
   };
 };
