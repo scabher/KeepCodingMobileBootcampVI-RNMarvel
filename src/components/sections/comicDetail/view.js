@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   View,
+  ScrollView,
   Text,
   FlatList,
   ActivityIndicator,
@@ -81,7 +82,7 @@ class ComicDetail extends Component {
     const description =
       comic && comic.description ? comic.description : "[Sin descripción]";
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Animated.Image
           source={image}
           resizeMode={"cover"}
@@ -121,7 +122,7 @@ class ComicDetail extends Component {
             onPress={() => Actions.characterAdd({ comic, isEdit: true })}
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
