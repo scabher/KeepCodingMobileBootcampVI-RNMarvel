@@ -11,7 +11,7 @@ import {
 import * as api from "../api/";
 
 import { createStore, applyMiddleware, combineReducers } from "redux";
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import * as reducers from "../redux/";
@@ -57,7 +57,6 @@ export default class App extends Component {
             <Scene
               key="comicDetail"
               component={ComicDetail}
-              renderRightButton={RightButton}
               {...sceneDefaultStyles}
             />
             <Scene
@@ -74,7 +73,6 @@ export default class App extends Component {
             <Scene
               key={"comicAddEdit"}
               component={ComicAddEdit}
-              title={"Añadir Comic"}
               {...sceneDefaultStyles}
             />
           </Stack>

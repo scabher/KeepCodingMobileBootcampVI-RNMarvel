@@ -8,7 +8,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { ComicCell } from "../../widgets/";
+import { Button, ComicCell } from "../../widgets/";
 import styles from "./styles";
 import { connect } from "react-redux";
 import * as ComicsActions from "../../../redux/comics/actions";
@@ -60,6 +60,13 @@ class Comics extends Component {
           numColumns={2}
           style={{ paddingTop: 40 }}
         />
+
+        <View style={{ margin: 20 }}>
+          <Button
+            label={"Añadir Comic"}
+            onPress={() => Actions.comicAddEdit({ comic: null, isEdit: false })}
+          />
+        </View>
 
         {this._renderActivityIndicator()}
       </View>

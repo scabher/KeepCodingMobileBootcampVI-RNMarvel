@@ -7,7 +7,6 @@ import ImagePicker from "react-native-image-picker";
 export default class extends Component {
   constructor(props) {
     super(props);
-    console.log("props.comic.images.length: ", props.comic.images.length);
     const image =
       props.isEdit && props.comic.images && props.comic.images.length > 0
         ? {
@@ -45,6 +44,12 @@ export default class extends Component {
     };
   }
 
+  componentWillMount() {
+    const navbarTile =
+      this.props.isEdit && this.props.comic ? "Editar comic" : "Añadir comic";
+    this.props.navigation.setParams({ title: navbarTile });
+  }
+
   _validateForm() {
     const { title, description, image } = this.state;
     if (title && description && image) {
@@ -57,6 +62,7 @@ export default class extends Component {
   _onSubmit() {
     if (this._validateForm()) {
       const { title, description, image } = this.state;
+      console.log("_onSubmit state: ", this.state);
       if (this.props.isEdit) {
         const comicId = this.props.comic.id;
         const imageData = this.state.image.data
@@ -67,15 +73,15 @@ export default class extends Component {
           title: title,
           description: description
         };
-        // FUNCION PARA HACER PATCH
-        //this.props.onSubmitCharacter(data)
+        console.log("_onSubmit data: ", this.data);
+        this.props.onSubmitComic(data);
       } else {
         const data = {
           image: image.data,
           title: title,
           description: description
         };
-        this.props.onSubmitCharacter(data);
+        this.props.onSubmitComic(data);
       }
     } else {
       Alert.alert("Atención", "Complete todos los campos");
@@ -123,6 +129,27 @@ export default class extends Component {
     );
   }
 
+  _renderActivityIndicator() {
+    if (!this.props.isFetching) {
+      return null;
+    }
+    return (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0
+        }}
+      >
+        <ActivityIndicator size={"large"} color={"white"} animating={true} />
+      </View>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -154,6 +181,8 @@ export default class extends Component {
             isFetching={this.props.isFetching}
           />
         </View>
+
+        {this._renderActivityIndicator()}
       </View>
     );
   }

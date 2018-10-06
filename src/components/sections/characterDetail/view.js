@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, Animated } from "react-native";
+import {
+  View,
+  Text,
+  ListItem,
+  Image,
+  TouchableOpacity,
+  Animated
+} from "react-native";
 import styles from "./styles";
 import { Button } from "../../widgets/";
 import { Actions } from "react-native-router-flux";
@@ -32,8 +39,17 @@ export default class extends React.Component {
   render() {
     const { character } = this.props;
     const image =
-      character && character.image_dir ? { uri: character.image_dir } : null;
-    const age = character && character.edad ? character.edad : "";
+      character && character.thumbnail
+        ? {
+            uri: character.thumbnail.path + "." + character.thumbnail.extension
+          }
+        : require("../../../resources/placeholder.jpg");
+    const name = character && character.name ? character.name : "[Sin nombre]";
+    const characterComics =
+      character && character.comics && character.comics.items.length > 0
+        ? character.comics.items
+        : [];
+
     return (
       <View style={styles.container}>
         <Animated.Image
@@ -42,9 +58,15 @@ export default class extends React.Component {
           style={[styles.image, { height: this.state.animatedHeight }]}
         />
         <View style={styles.dataContainer}>
-          <Text style={styles.text}>{"Edad: "}</Text>
-          <Text style={styles.text}>{age}</Text>
+          <Text style={styles.text}>{"Nombre: "}</Text>
+          <Text style={styles.text}>{name}</Text>
         </View>
+
+        {/* <View style={styles.dataContainer}>
+          characterComics.map((comic) => (
+          <ListItem key={comic.id} title={comic.title} />
+          ))
+        </View> */}
 
         <View style={{ margin: 20 }}>
           <Button
@@ -57,7 +79,7 @@ export default class extends React.Component {
         <View style={{ margin: 20 }}>
           <Button
             label={"EDITAR"}
-            onPress={() => Actions.comicAddEdit({ comic, isEdit: true })}
+            onPress={() => Actions.characterAddEdit({ comic, isEdit: true })}
           />
         </View>
       </View>

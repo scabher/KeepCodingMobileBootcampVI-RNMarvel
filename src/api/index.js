@@ -12,6 +12,7 @@ export function configureAxios() {
   axios.defaults.headers.common["Referer"] = "react-native.kc.com";
 }
 
+//#region Comic API calls
 export function fetchComics() {
   const url = `/comics?${PUBLIC_API_KEY_PARAM}`;
   return axios.get(url);
@@ -22,7 +23,29 @@ export function fetchComicCharacters(comicId) {
   return axios.get(url);
 }
 
-export function postComicCharacter(data) {
-  const url = "/personajes";
-  return axios.post(url, data);
+/**
+ * Fake method
+ * The Marvel API does not allow post/update a comic data
+ */
+export function postComic(comic) {
+  /* 
+  const url = `/comic/${comic.id}?${PUBLIC_API_KEY_PARAM}`;
+  return axios.post(url, comic);
+  */
 }
+//#endregion
+
+//#region Character API calls
+
+/**
+ * Fake method
+ * The Marvel API does not allow post/update a character data
+ */
+export function postCharacter(character) {
+  /* 
+  const url = `/character/${character.id}?${PUBLIC_API_KEY_PARAM}`;
+  return axios.post(url, character);
+  */
+}
+
+//#endregion

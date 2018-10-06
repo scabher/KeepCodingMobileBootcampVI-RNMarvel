@@ -12,7 +12,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onSubmitComic: data => {
-      dispatch(ComicsActions.postComic(data));
+      if (props.isEdit) {
+        dispatch(ComicsActions.postComic(data));
+      } else {
+        dispatch(ComicsActions.addComic(data));
+      }
     }
   };
 };

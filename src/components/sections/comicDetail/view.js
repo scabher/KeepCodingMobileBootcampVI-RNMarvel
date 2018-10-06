@@ -52,7 +52,7 @@ class ComicDetail extends Component {
     return (
       <CharacterCell
         character={item}
-        onCharacterPress={v => this._onCharacterTapped(v)}
+        onCharacterPress={this.props.onCharacterTapped}
       />
     );
   }
@@ -79,6 +79,7 @@ class ComicDetail extends Component {
       comic && comic.images && comic.images.length > 0
         ? { uri: comic.images[0].path + "." + comic.images[0].extension }
         : require("../../../resources/placeholder.jpg");
+    const title = comic && comic.title ? comic.title : "[Sin título]";
     const description =
       comic && comic.description ? comic.description : "[Sin descripción]";
     return (
@@ -88,6 +89,11 @@ class ComicDetail extends Component {
           resizeMode={"cover"}
           style={[styles.image, { height: this.state.animatedHeight }]}
         />
+
+        <View style={styles.dataContainer}>
+          <Text style={styles.text}>{"Título completo: "}</Text>
+          <Text style={styles.text}>{title}</Text>
+        </View>
 
         <View style={styles.dataContainer}>
           <Text style={styles.text}>{"Descripción: "}</Text>
@@ -140,9 +146,9 @@ const mapDispatchToProps = (dispatch, props) => {
     fetchComicCharactersList: () => {
       dispatch(CharactersActions.fetchComicCharactersList(props.comic));
     },
-    onComicTapped: comic => {
-      dispatch(ComicsActions.setItem(comic));
-      Actions.comicDetail({ title: comic.title });
+    onCharacterTapped: character => {
+      dispatch(CharactersActions.setItem(character));
+      Actions.characterDetail({ title: character.name });
     }
   };
 };
