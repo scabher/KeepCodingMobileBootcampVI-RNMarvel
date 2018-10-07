@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert
+} from "react-native";
 import { Button, TextInput } from "../../widgets/";
 import styles from "./styles";
 import ImagePicker from "react-native-image-picker";
@@ -173,7 +180,7 @@ export default class extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={{ paddingTop: 40, padding: 20 }}>
           {this._renderTextInput(
             "Título del comic: *",
@@ -206,7 +213,7 @@ export default class extends Component {
         </View>
 
         {this._renderActivityIndicator()}
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -76,12 +76,6 @@ export default class extends React.Component {
             onPress={() => this._onShowImage()}
           />
         </View>
-        <View style={{ margin: 20 }}>
-          <Button
-            label={"EDITAR"}
-            onPress={() => Actions.characterAddEdit({ character, isEdit: true })}
-          />
-        </View>
       </View>
     );
   }
