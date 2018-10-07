@@ -60,12 +60,6 @@ export default class App extends Component {
               {...sceneDefaultStyles}
             />
             <Scene
-              key="characters"
-              component={Characters}
-              renderRightButton={RightButton}
-              {...sceneDefaultStyles}
-            />
-            <Scene
               key={"characterDetail"}
               component={CharacterDetail}
               {...sceneDefaultStyles}
