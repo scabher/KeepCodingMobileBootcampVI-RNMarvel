@@ -10,11 +10,9 @@ export default class extends Component {
     const image =
       props.isEdit && props.comic.images && props.comic.images.length > 0
         ? {
-            preview: {
-              uri:
-                props.comic.images[0].path +
-                "." +
-                props.comic.images[0].extension
+            uri: {
+              path: props.comic.images[0].path,
+              extension: props.comic.images[0].extension
             }
           }
         : null;
@@ -62,22 +60,39 @@ export default class extends Component {
   _onSubmit() {
     if (this._validateForm()) {
       const { title, description, image } = this.state;
-      console.log("_onSubmit state: ", this.state);
       if (this.props.isEdit) {
-        const comicId = this.props.comic.id;
-        const imageData = this.state.image.data
-          ? { image: this.setState.image.data }
+        const imageData = image.data
+          ? {
+              images: [
+                {
+                  path: image.uri.path,
+                  extension: image.uri.extension
+                }
+              ],
+              thumbnail: {
+                path: image.uri.path,
+                extension: image.uri.extension
+              }
+            }
           : {};
         const data = {
           ...imageData,
           title: title,
           description: description
         };
-        console.log("_onSubmit data: ", this.data);
         this.props.onSubmitComic(data);
       } else {
         const data = {
-          image: image.data,
+          images: [
+            {
+              path: image.uri.path,
+              extension: image.uri.extension
+            }
+          ],
+          thumbnail: {
+            path: image.uri.path,
+            extension: image.uri.extension
+          },
           title: title,
           description: description
         };
@@ -91,10 +106,12 @@ export default class extends Component {
   _onImagePickerTapped() {
     ImagePicker.showImagePicker(this.options, response => {
       if (response.uri && response.data) {
-        let preview = { uri: response.uri };
+        const index = response.uri.lastIndexOf(".");
+        const path = response.uri.slice(0, index);
+        const extension = response.uri.slice(index + 1);
         let data = "data:image/jpeg;base64," + response.data;
         this.setState({
-          image: { preview, data }
+          image: { uri: { path, extension }, data }
         });
       }
     });
@@ -112,7 +129,11 @@ export default class extends Component {
   }
 
   _renderImageInput() {
-    const imageUri = this.state.image ? this.state.image.preview : null;
+    const imageUri = this.state.image
+      ? {
+          uri: `${this.state.image.uri.path}.${this.state.image.uri.extension}`
+        }
+      : null;
     const imageLabel = this.state.image
       ? "Pulsa para escoger otra imagen"
       : "Pulsa para elegir imagen *";
@@ -167,6 +188,8 @@ export default class extends Component {
             value={this.state.description}
             onChangeText={description => this.setState({ description })}
             placeholder={"Sin descripción"}
+            multiline={true}
+            numberOfLines={5}
           />
         </View>
 

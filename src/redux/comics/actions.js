@@ -55,15 +55,17 @@ export function fetchComicsList() {
 
 export function addComic(data) {
   return (dispatch, getState, api) => {
+    if (!data) {
+      return;
+    }
+
     dispatch(setFetching(true));
 
     // Should call to API, here there is a simulation
     setTimeout(() => {
-      console.log("addComic comics before: ", comics);
       const comics = getState().comics.list;
       comics.push(data);
-      console.log("addComic comics after: ", comics);
-      setList(comics);
+      dispatch(setList(comics));
       Actions.pop();
     }, 2000);
 
@@ -72,7 +74,6 @@ export function addComic(data) {
 }
 
 export function postComic(data) {
-  console.log("postComic data: ", data);
   return (dispatch, getState, api) => {
     const comic = getState().comics.item;
     if (!data || !comic) {
@@ -82,18 +83,24 @@ export function postComic(data) {
     dispatch(setFetching(true));
 
     setTimeout(() => {
-      const updateComicData = {
-        ...data,
-        id: comic.id
-      };
-      console.log("updateComicData: ", updateComicData);
-      dispatch(setItem(updateComicData));
+      const comicList = getState().comics.list;
+      comicList.map((item, idx, comics) => {
+        if (item.id == comic.id) {
+          comics[idx] = {
+            ...item,
+            ...data,
+            id: comic.id
+          };
+          dispatch(setItem(comics[idx]));
+          dispatch(setList(comicList));
+        }
+      });
       Actions.pop();
     }, 2000);
 
     dispatch(setFetching(false));
 
-    // Should call to api instead of dispatch setItem
+    // Should call to api instead of dispatch setItem and setList
     // api
     //  .postComic(updateComicData)...
   };

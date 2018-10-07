@@ -79,7 +79,7 @@ export default class extends React.Component {
         <View style={{ margin: 20 }}>
           <Button
             label={"EDITAR"}
-            onPress={() => Actions.characterAddEdit({ comic, isEdit: true })}
+            onPress={() => Actions.characterAddEdit({ character, isEdit: true })}
           />
         </View>
       </View>

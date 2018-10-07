@@ -25,7 +25,7 @@ export function setItem(value) {
 
 export function fetchComicCharactersList(comic) {
   return (dispatch, getState, api) => {
-    if (!comic) {
+    if (!comic || !comic.id) {
       return;
     }
 
