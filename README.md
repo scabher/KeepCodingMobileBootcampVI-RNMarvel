@@ -23,4 +23,4 @@ Para el desarrollo de la práctica se han usado las siguientes funcionalidades/l
 - _axios_: Para la comunicaciones con la API de marvel
 - _Redux_: Para la mantenimiento del estado de la App.
 - _FlatList_: Para mostrar las listas de comics y personajes de un comic.
-- _Formularios_: Se han implementados dos formularios, uno para dar de alta un comic y otro para la edición de los mismos. Destacar que como la API de Marvel no permite la modificación de datos, se ha simulado en la medida de lo posible, la actualización de los comics.
+- _Formularios_: Se han implementados dos formularios, uno para dar de alta un comic y otro para la edición de los mismos. Destacar que como la API de Marvel no permite la modificación de datos, se ha simulado en la medida de lo posible, la actualización de los comics. Se ha incluido un retardo de 2 segundos en cada acción de actualización.

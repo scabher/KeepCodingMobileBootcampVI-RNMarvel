@@ -1,5 +1,4 @@
 import * as types from "./types";
-import { Actions } from "react-native-router-flux";
 import { AsyncStorage } from "react-native";
 
 function setFetching(value) {
@@ -53,34 +52,6 @@ export function fetchComicCharactersList(comic) {
       .catch(err => {
         dispatch(setFetching(false));
         console.log("fetchComicCharacters error: ", err);
-      });
-  };
-}
-
-export function postComicCharacter(data) {
-  return (dispatch, getState, api) => {
-    const comic = getState().comics.item;
-    if (!data || !comic) {
-      return;
-    }
-
-    dispatch(setFetching(true));
-
-    const characterData = {
-      ...data,
-      casa: comic.id
-    };
-
-    api
-      .postComicCharacter(characterData)
-      .then(res => {
-        dispatch(setFetching(false));
-        dispatch(fetchComicCharacters());
-        Actions.pop();
-      })
-      .catch(err => {
-        dispatch(setFetching(false));
-        console.log("postComicCharacter err: ", err);
       });
   };
 }
