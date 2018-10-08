@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  ListItem,
-  Image,
-  TouchableOpacity,
-  Animated
-} from "react-native";
+import { ScrollView, View, Text, FlatList, Animated } from "react-native";
 import styles from "./styles";
 import { Button } from "../../widgets/";
 import { Actions } from "react-native-router-flux";
@@ -36,6 +29,31 @@ export default class extends React.Component {
     }
   }
 
+  _renderCharacterComics(character) {
+    const characterComics =
+      character && character.comics && character.comics.items.length > 0
+        ? character.comics.items
+        : [];
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.dataContainer}>
+          <Text style={styles.text}>{"Aparece en: "}</Text>
+        </View>
+        <ScrollView style={{ padding: 20 }}>
+          <FlatList
+            data={characterComics}
+            renderItem={item => (
+              <Text style={styles.text}>- {item.item.name}</Text>
+            )}
+            keyExtractor={(item, i) => "row" + i}
+            extraData={this.props.character.comics.items}
+          />
+        </ScrollView>
+      </View>
+    );
+  }
+
   render() {
     const { character } = this.props;
     const image =
@@ -45,10 +63,6 @@ export default class extends React.Component {
           }
         : require("../../../resources/placeholder.jpg");
     const name = character && character.name ? character.name : "[Sin nombre]";
-    const characterComics =
-      character && character.comics && character.comics.items.length > 0
-        ? character.comics.items
-        : [];
 
     return (
       <View style={styles.container}>
@@ -62,11 +76,7 @@ export default class extends React.Component {
           <Text style={styles.text}>{name}</Text>
         </View>
 
-        {/* <View style={styles.dataContainer}>
-          characterComics.map((comic) => (
-          <ListItem key={comic.id} title={comic.title} />
-          ))
-        </View> */}
+        {this._renderCharacterComics(character)}
 
         <View style={{ margin: 20 }}>
           <Button
